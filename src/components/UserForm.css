@@ -68,9 +68,16 @@ button {
   margin-top: 10px;
 }
 
+button:disabled {
+  background-color: #ccc;
+  /* Grey color when disabled */
+  cursor: not-allowed;
+}
+
 /* Button hover styling */
-button:hover {
-  background-color: #218838;
+button:hover,
+button:disabled:hover {
+  filter: brightness(80%);
 }
 
 /* Responsive styling */

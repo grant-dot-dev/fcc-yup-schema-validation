@@ -5,5 +5,5 @@ export const validationSchema = Yup.object({
 
   surname: Yup.string().required('Surname is required'),
   email: Yup.string().email('Invalid email format').required('Email is required'),
-  dateOfBirth: Yup.date().required('Date of Birth is required')
+  dob: Yup.date().required('Date of Birth is required')
 });
