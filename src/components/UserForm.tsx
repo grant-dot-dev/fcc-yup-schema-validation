@@ -1,21 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import './UserForm.css';
-import { validationSchema } from '../validation_schema';
+
 
 import './UserForm.css';
+import { UserInput } from '../types';
+import { userFormSchema } from '../validation_schema';
 
-
-interface UserInput {
-  firstName: string;
-  surname: string;
-  email: string;
-  dob: string;
-}
 
 export const UserForm = () => {
 
   const initialValues: UserInput = {
-    firstName: '',
+    firstname: '',
     surname: '',
     email: '',
     dob: ''
@@ -30,15 +25,20 @@ export const UserForm = () => {
       <h2>User Form</h2>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        validationSchema={userFormSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          // used in local development to simulate async API call
+          setTimeout(() => {
+            setSubmitting(false);
+          }, 300);
+        }}
       >
-        {({ isValid, dirty, isSubmitting }) => (
+        {({ isValid, isSubmitting }) => (
           <Form>
             <div className="form-control">
-              <label htmlFor="firstName">First Name</label>
-              <Field type="text" id="firstName" name="firstName" />
-              <ErrorMessage name="firstName" component="div" className="error" />
+              <label htmlFor="firstname">First Name</label>
+              <Field type="text" id="firstName" name="firstname" />
+              <ErrorMessage name="firstname" component="div" className="error" />
             </div>
 
             <div className="form-control">
@@ -59,11 +59,11 @@ export const UserForm = () => {
               <ErrorMessage name="dob" component="div" className="error" />
             </div>
 
-            <button disabled={!(isValid && dirty) || isSubmitting} type="submit">Submit</button>
+            <button type="submit" disabled={isSubmitting || !isValid}>Submit</button>
           </Form>
         )}
       </Formik>
-    </div>
+    </div >
   );
 };
 
